@@ -24,7 +24,8 @@
     "migration:down": "npm run typeorm -- migration:revert",
     "migration:drop-schema": "npm run typeorm schema:drop",
     "migration:create": "npx ts-node ./node_modules/typeorm/cli.js migration:create -n",
-    "typeorm": "ts-node -r tsconfig-paths/register -T --files ./node_modules/typeorm/cli.js -d ./ormconfig.ts"
+    "typeorm": "ts-node -r tsconfig-paths/register -T --files ./node_modules/typeorm/cli.js -d ./ormconfig.ts",
+    "generate:articles": "ts-node -r tsconfig-paths/register src/scripts/generate-articles.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",

@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ArticleModule } from './article/article.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CommentsModule } from './comments/comments.module';
 
 const entitiesPath = 'dist/**/*.entity{.ts,.js}';
 
@@ -26,6 +27,7 @@ const entitiesPath = 'dist/**/*.entity{.ts,.js}';
     ArticleModule,
     UsersModule,
     AuthModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
