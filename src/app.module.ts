@@ -3,7 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ArticlesModule } from './articles/articles.module';
+import { ArticleModule } from './article/article.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 const entitiesPath = 'dist/**/*.entity{.ts,.js}';
 
@@ -21,7 +23,9 @@ const entitiesPath = 'dist/**/*.entity{.ts,.js}';
       synchronize: false,
       logging: false,
     }),
-    ArticlesModule,
+    ArticleModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
