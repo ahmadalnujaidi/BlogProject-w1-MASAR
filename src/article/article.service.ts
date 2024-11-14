@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Article } from './article.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class ArticleService {
@@ -25,8 +26,27 @@ export class ArticleService {
   }
 
   // Get all articles
-  async findAll(): Promise<Article[]> {
-    return this.articleRepository.find();
+  async findAll(paginationQuery: PaginationQueryDto): Promise<Article[]> {
+    const { limit, page, search } = paginationQuery;
+
+    const query = this.articleRepository.createQueryBuilder('article');
+
+    if (search) {
+      query.where('article.title LIKE :search OR article.body LIKE :search', {
+        search: `%${search}%`,
+      });
+    }
+
+    if (limit) {
+      query.take(limit);
+    }
+
+    if (page) {
+      const skip = page * (limit || 10); // Default limit if not provided
+      query.skip(skip);
+    }
+
+    return query.getMany();
   }
 
   // Get an article by ID

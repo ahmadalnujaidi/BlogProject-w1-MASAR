@@ -10,12 +10,14 @@ import {
   HttpStatus,
   UseGuards,
   Request,
+  Query,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { Article } from './article.entity';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('articles')
 export class ArticleController {
@@ -32,10 +34,13 @@ export class ArticleController {
   ): Promise<Article> {
     return this.articleService.createArticle(createArticleDto, req.user.userId);
   }
+
   // get all articles
   @Get()
-  async findAll(): Promise<Article[]> {
-    return this.articleService.findAll();
+  async findAll(
+    @Query() paginationQuery: PaginationQueryDto,
+  ): Promise<Article[]> {
+    return this.articleService.findAll(paginationQuery);
   }
 
   // Get an article by ID
